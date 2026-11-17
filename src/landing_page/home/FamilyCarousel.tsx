@@ -9,60 +9,60 @@ import {
   Lock,
 } from "lucide-react";
 
-// Assets
 import familyImg1 from "../../assets/hero/a.jpg";
 import familyImg2 from "../../assets/hero/b.jpg";
 import familyImg3 from "../../assets/hero/c.jpg";
 
+/**
+ * Sample stories: replace names and quotes with real members (with their permission).
+ * Match each image to its story: a.jpg = Okoye family, b.jpg = Class of 2009, c.jpg = Eze & Sons team.
+ */
 const families = [
   {
     id: 1,
-    name: "Zenith Family",
-    location: "Port Harcourt, NG",
+    name: "The Okoye Family",
+    location: "Port Harcourt, Rivers",
     caption:
-      "Kokohor turned our scattered family photos and documents into a single, permanent home. Now, our history is safe and accessible to every relative, no matter where they are.",
+      "My dad travels often for work. Now he saves his route and emergency details in the Safety Vault, and my sister and I know we can reach them if he ever goes quiet.",
     image: familyImg1,
-    stat: "100% Data Ownership",
-    tag: "Family Vault",
+    stat: "Assigned access",
+    tag: "Safety Vault",
   },
   {
     id: 2,
-    name: "Sterling Family",
-    location: "London, UK",
+    name: "Class of 2009",
+    location: "Lagos, Nigeria",
     caption:
-      "The weekly family digests are incredible. Instead of scrolling through endless group chats, I get a beautiful summary of our most important shared moments.",
+      "We were scattered across five cities and one WhatsApp group had 300 messages a day. Our Kokohor circle has the reunion poll, the news and the voice notes in one place.",
     image: familyImg2,
-    stat: "End-to-End Encrypted",
-    tag: "Weekly Digest",
+    stat: "Private circle",
+    tag: "Classmates",
   },
   {
     id: 3,
-    name: "Chen Family",
-    location: "Toronto, CA",
+    name: "Eze & Sons Trading",
+    location: "Abuja, FCT",
     caption:
-      "We needed a place where our children could grow up seeing their heritage. Kokohor is more than an app; it's the digital foundation for our future generations.",
+      "Our staff and our relatives are in separate circles, so announcements go to the right people. When we need to talk fast, we send a voice note.",
     image: familyImg3,
-    stat: "Multi-Gen Storage",
-    tag: "Heritage Archive",
+    stat: "Separate circles",
+    tag: "Business",
   },
 ];
 
 const slideVariants: Variants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? "10%" : "-10%",
+    x: direction > 0 ? "8%" : "-8%",
     opacity: 0,
-    filter: "blur(8px)",
   }),
   center: {
     x: 0,
     opacity: 1,
-    filter: "blur(0px)",
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
   },
   exit: (direction: number) => ({
-    x: direction < 0 ? "10%" : "-10%",
+    x: direction < 0 ? "8%" : "-8%",
     opacity: 0,
-    filter: "blur(8px)",
     transition: { duration: 0.3 },
   }),
 };
@@ -76,50 +76,47 @@ const FamilyCarousel: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#050505] py-16 lg:py-32 px-4 md:px-10 overflow-hidden relative">
-      {/* Architectural Background Text */}
-      <div className="absolute top-10 lg:top-24 left-1/2 -translate-x-1/2 text-[12rem] lg:text-[22rem] font-black text-white/[0.01] select-none pointer-events-none tracking-tighter leading-none uppercase">
-        History
-      </div>
-
+    <section className="bg-[#F4F4F2] py-16 lg:py-28 px-4 md:px-10 overflow-hidden relative">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Responsive Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-16 gap-6">
-          <div className="max-w-xl">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-8">
+          <div className="max-w-2xl">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 text-yellow-500 mb-4"
+              className="flex items-center gap-2 text-neutral-500 mb-4"
             >
-              <Globe size={14} className="animate-pulse" />
-              <span className="font-black uppercase tracking-[0.3em] text-[9px] lg:text-[11px]">
-                Connecting Families Across Borders
+              <Globe size={14} className="animate-pulse text-amber-500" />
+              <span className="font-semibold uppercase tracking-[0.25em] text-[10px] lg:text-xs">
+                Circles using Kokohor
               </span>
             </motion.div>
-            <h2 className="text-white text-4xl sm:text-6xl lg:text-8xl font-black tracking-tightest leading-[0.85] uppercase">
-              Stories that <br />
-              <span className="text-white/30">Live Forever.</span>
+            <h2 className="text-neutral-900 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
+              Real circles, <br />
+              <span className="text-neutral-400">closer every day.</span>
             </h2>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
+              aria-label="Previous story"
               onClick={() => paginate(-1)}
-              className="w-14 h-14 lg:w-20 lg:h-20 rounded-2xl border border-white/10 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-black transition-colors"
+              className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={22} />
             </button>
             <button
+              aria-label="Next story"
               onClick={() => paginate(1)}
-              className="w-14 h-14 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-black transition-colors"
+              className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={22} />
             </button>
           </div>
         </div>
 
-        {/* Main Display Area */}
-        <div className="relative min-h-[650px] lg:min-h-0 lg:aspect-[16/7] w-full">
+        {/* Carousel Card */}
+        <div className="relative min-h-[580px] lg:min-h-0 lg:aspect-[16/8] w-full">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={page}
@@ -128,84 +125,84 @@ const FamilyCarousel: React.FC = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="lg:absolute inset-0 flex flex-col lg:grid lg:grid-cols-12 rounded-[2.5rem] lg:rounded-[4rem] overflow-hidden border border-white/10 bg-[#080808]"
+              className="lg:absolute inset-0 flex flex-col lg:grid lg:grid-cols-12 rounded-3xl overflow-hidden border border-neutral-200 bg-white"
             >
-              {/* Responsive Image Container */}
-              <div className="lg:col-span-7 relative h-[380px] lg:h-auto border-b lg:border-b-0 lg:border-r border-white/5">
+              {/* Image Side */}
+              <div className="lg:col-span-7 relative h-[340px] lg:h-auto">
                 <img
                   src={families[currentIndex].image}
                   alt={families[currentIndex].name}
-                  className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-
-                <div className="absolute bottom-8 left-8 lg:bottom-14 lg:left-14 right-8">
+                <div className="absolute bottom-8 left-8 right-8">
                   <motion.div
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 16, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    className="flex flex-col gap-3"
+                    className="flex flex-col gap-2"
                   >
-                    <div className="flex items-center gap-2 px-4 py-1.5 w-fit bg-yellow-500 rounded-lg text-black text-[10px] font-black uppercase tracking-widest">
-                      <Lock size={12} className="fill-black" />{" "}
+                    <div className="flex items-center gap-2 px-3 py-1 w-fit bg-white rounded-full text-neutral-900 text-[10px] font-semibold uppercase tracking-wider">
+                      <Lock size={11} />
                       {families[currentIndex].tag}
                     </div>
-                    <h3 className="text-white font-black text-4xl lg:text-6xl tracking-tighter uppercase">
+                    <h3 className="text-white font-bold text-3xl lg:text-5xl tracking-tight">
                       {families[currentIndex].name}
                     </h3>
-                    <p className="text-yellow-500 font-bold text-[11px] uppercase tracking-[0.4em]">
+                    <p className="text-white/80 text-xs font-medium uppercase tracking-widest">
                       {families[currentIndex].location}
                     </p>
                   </motion.div>
                 </div>
               </div>
 
-              {/* Responsive Text Container */}
-              <div className="lg:col-span-5 p-10 lg:p-16 flex flex-col justify-center relative bg-black/40">
-                <Quote
-                  className="text-white/[0.02] absolute top-10 right-10 lg:top-14 lg:right-14"
-                  size={100}
-                  strokeWidth={8}
-                />
+              {/* Content Side */}
+              <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between relative bg-[#FAFAF8]">
+                <div>
+                  <Quote
+                    className="text-neutral-200 mb-6"
+                    size={36}
+                    strokeWidth={1.5}
+                  />
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.15 }}
+                    className="text-neutral-700 text-lg lg:text-xl leading-relaxed"
+                  >
+                    “{families[currentIndex].caption}”
+                  </motion.p>
+                </div>
 
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-white/90 text-xl lg:text-2xl font-medium leading-tight lg:leading-relaxed mb-12 lg:mb-20 relative z-10 tracking-tight"
-                >
-                  "{families[currentIndex].caption}"
-                </motion.p>
-
-                <div className="space-y-10 border-t border-white/10 pt-10 lg:pt-14">
-                  <div className="grid grid-cols-2 gap-6">
+                <div className="mt-10 pt-8 border-t border-neutral-200">
+                  <div className="grid grid-cols-2 gap-6 mb-8">
                     <div>
-                      <p className="text-gray-600 text-[9px] lg:text-[11px] font-black uppercase tracking-[0.3em] mb-2">
-                        Security
+                      <p className="text-neutral-400 text-[10px] font-semibold uppercase tracking-widest mb-1.5">
+                        Privacy
                       </p>
-                      <p className="text-white font-black text-xl lg:text-2xl tracking-tighter flex items-center gap-2 uppercase">
+                      <p className="text-neutral-900 font-semibold text-lg flex items-center gap-2">
                         {families[currentIndex].stat}
-                        <ShieldCheck size={20} className="text-yellow-500" />
+                        <ShieldCheck size={18} className="text-amber-500" />
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-gray-600 text-[9px] lg:text-[11px] font-black uppercase tracking-[0.3em] mb-2">
+                      <p className="text-neutral-400 text-[10px] font-semibold uppercase tracking-widest mb-1.5">
                         Platform
                       </p>
-                      <p className="text-yellow-500 font-black text-xl lg:text-2xl uppercase">
-                        Kokohor Mobile
+                      <p className="text-amber-600 font-semibold text-lg">
+                        Kokohor for Android
                       </p>
                     </div>
                   </div>
 
-                  {/* Dynamic Progress Indicator */}
-                  <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
+                  {/* Progress bar */}
+                  <div className="w-full h-1 bg-neutral-200 rounded-full overflow-hidden">
                     <motion.div
                       key={page}
                       initial={{ width: "0%" }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 7, ease: "linear" }}
-                      className="h-full bg-yellow-500"
+                      className="h-full bg-amber-400"
                     />
                   </div>
                 </div>
