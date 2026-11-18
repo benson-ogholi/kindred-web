@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  ShieldCheck,
   ArrowRight,
   Loader2,
   AlertCircle,
