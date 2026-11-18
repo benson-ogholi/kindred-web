@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon, ICONS, Logo, PLAY_STORE, YELLOW } from "../home/shared";
 
+// Hash links use "/#id" so they work from any page (needs the ScrollToTop with hash support).
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Safety Vault", href: "#vault" },
-  { label: "Circles", href: "#circles" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", to: "/" },
+  { label: "Safety Vault", to: "/#vault" },
+  { label: "Circles", to: "/#circles" },
+  { label: "FAQs", to: "/faqs" },
+  { label: "Contact", to: "/#contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -19,6 +23,11 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close the mobile menu whenever the route changes
+  useEffect(() => setOpen(false), [pathname]);
+
+  const isActive = (to: string) => to === "/faqs" && pathname === "/faqs";
 
   return (
     <header
@@ -35,15 +44,23 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden items-center gap-1.5 md:flex bg-neutral-100/70 p-1.5 rounded-full border border-neutral-200/60 shadow-2xs">
+        <nav
+          className="hidden items-center gap-1.5 md:flex bg-neutral-100/70 p-1.5 rounded-full border border-neutral-200/60 shadow-2xs"
+          aria-label="Main"
+        >
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="rounded-full px-4 py-1.5 text-sm font-medium text-neutral-600 transition-all hover:bg-white hover:text-neutral-900 hover:shadow-xs"
+            <Link
+              key={l.to}
+              to={l.to}
+              aria-current={isActive(l.to) ? "page" : undefined}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all hover:bg-white hover:text-neutral-900 hover:shadow-xs ${
+                isActive(l.to)
+                  ? "bg-white text-neutral-900 shadow-xs"
+                  : "text-neutral-600"
+              }`}
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -57,7 +74,9 @@ export default function Navbar() {
             style={{ background: YELLOW }}
           >
             <span>Get the app</span>
-            <span className="text-xs bg-black/10 px-1.5 py-0.5 rounded-full">Android</span>
+            <span className="text-xs bg-black/10 px-1.5 py-0.5 rounded-full">
+              Android
+            </span>
           </a>
 
           <button
@@ -84,15 +103,19 @@ export default function Navbar() {
           >
             <nav className="flex flex-col gap-1" aria-label="Mobile">
               {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+                <Link
+                  key={l.to}
+                  to={l.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-neutral-800 transition hover:bg-neutral-100 flex items-center justify-between"
+                  className={`rounded-xl px-4 py-3 text-base font-medium transition hover:bg-neutral-100 flex items-center justify-between ${
+                    isActive(l.to)
+                      ? "bg-neutral-100 text-neutral-900"
+                      : "text-neutral-800"
+                  }`}
                 >
                   <span>{l.label}</span>
                   <span className="text-neutral-400 text-sm">→</span>
-                </a>
+                </Link>
               ))}
             </nav>
 

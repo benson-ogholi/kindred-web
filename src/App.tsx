@@ -30,10 +30,32 @@ const ProtectedAdminRoute = ({ children }: { children: any }) => {
 };
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash, key } = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    const id = decodeURIComponent(hash.slice(1));
+    let tries = 0;
+    let timer: number;
+
+    const attempt = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (tries++ < 30) {
+        // the page may still be rendering after a route change
+        timer = window.setTimeout(attempt, 50);
+      }
+    };
+
+    attempt();
+    return () => window.clearTimeout(timer);
+  }, [pathname, hash, key]); // `key` changes on every click, even to the same hash
+
   return null;
 }
 
