@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon, ICONS, Logo, PLAY_STORE, YELLOW } from "../home/shared";
-import { Arrow, LINE, PAPER } from "../home/editorial";
+import { Arrow, LINE, } from "../home/editorial";
 
 // Hash links use "/#id" so they work from any page (needs the ScrollToTop with hash support).
 const links = [
