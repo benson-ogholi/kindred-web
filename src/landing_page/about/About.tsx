@@ -245,7 +245,7 @@ const initials = (n: string) =>
 
 export default function About() {
   return (
-    <main className="bg-[#F3F3F1] text-neutral-900">
+    <main className="bg-[#ffffff] text-neutral-900">
       <style>{`
         @keyframes kk-marquee { to { transform: translateX(-50%); } }
         .kk-marquee { animation: kk-marquee 32s linear infinite; }

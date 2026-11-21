@@ -6,7 +6,7 @@ import { YELLOW } from "./shared";
 
 export const ACCENT = "#E8981C";
 export const NAVY = "#14264A";
-export const PAPER = "#F3F3F1";
+export const PAPER = "#ffffff";
 export const LINE = "border-neutral-300/70";
 
 export const Wrap = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
