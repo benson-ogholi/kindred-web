@@ -63,16 +63,19 @@ const stores = [
 
 const triggers = [
   {
+    id: "missed",
     icon: ICONS.clock,
     title: "Missed check-in",
     body: "You don’t confirm you’re okay within the time you set — for example 48 hours.",
   },
   {
+    id: "scheduled",
     icon: ICONS.calendar,
     title: "Scheduled date",
     body: "Release on a date you choose, like the end of a long trip.",
   },
   {
+    id: "manual",
     icon: ICONS.shield,
     title: "Manual release",
     body: "Open the vault yourself whenever you need to.",
@@ -112,6 +115,7 @@ export default function SafetyVault() {
   const rm = !!useReducedMotion();
   const [windowIdx, setWindowIdx] = useState(1);
   const [recipients, setRecipients] = useState(initialRecipients);
+  const [selectedTrigger, setSelectedTrigger] = useState<string>("missed");
   const [savedNotice, setSavedNotice] = useState(false);
 
   const activeRecipients = recipients.filter((r) => r.enabled);
@@ -296,22 +300,24 @@ export default function SafetyVault() {
           </div>
         </motion.div>
 
-        {/* How It Works — Numbered Editorial Strip */}
-        <div className="mt-24">
-          <div className="flex flex-col justify-between gap-4 border-b pb-6 sm:flex-row sm:items-end border-neutral-200">
+        {/* /HOW IT WORKS/ — Clean 4-Step Editorial Sequence */}
+        <div className="mt-24 border-t pt-12 border-neutral-200">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-medium">/HOW IT WORKS/</p>
+              <p className="text-xs font-semibold tracking-wider">
+                /HOW IT WORKS/
+              </p>
               <h3 className="mt-2 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
                 Four steps to quiet readiness
               </h3>
             </div>
-            <Small className="max-w-xs">
+            <Small className="max-w-sm">
               Built so nothing leaks early and your people get clarity when it
               counts.
             </Small>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <motion.div
                 key={s.num}
@@ -319,120 +325,164 @@ export default function SafetyVault() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06, duration: 0.45, ease: EASE }}
-                className={`border-b py-7 sm:pr-6 lg:border-b-0 lg:border-r lg:last:border-r-0 ${
-                  i > 0 ? "lg:pl-6" : ""
-                } ${LINE}`}
+                className="flex flex-col justify-between rounded-2xl border bg-white/80 p-6 transition-colors hover:bg-white"
+                style={{ borderColor: "rgba(23,23,23,0.12)" }}
               >
-                <span
-                  className="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold text-neutral-900"
-                  style={{ background: i === 3 ? YELLOW : "#ffffff" }}
-                >
-                  {s.num}
-                </span>
-                <h4 className="mt-4 text-lg font-semibold tracking-[-0.025em]">
-                  {s.title}
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                  {s.body}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* What You Can Keep — 3-Column Editorial Grid */}
-        <div className="mt-24">
-          <p className="text-xs font-medium">/VAULT CONTENTS/</p>
-          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
-            What you can keep in it
-          </h3>
-          <Small className="mt-2 max-w-lg">
-            Everything your family would struggle to piece together in an urgent
-            moment, kept in one structured place.
-          </Small>
-
-          <div
-            className={`mt-10 grid border-t border-l sm:grid-cols-2 lg:grid-cols-3 ${LINE}`}
-          >
-            {stores.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={rm ? false : { opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: Math.min(i * 0.05, 0.25),
-                  duration: 0.4,
-                  ease: EASE,
-                }}
-                className={`group border-r border-b bg-white/60 p-6 transition-colors hover:bg-white ${LINE}`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-900">
-                    <Icon d={item.icon} className="h-5 w-5" />
-                  </span>
-                  <span
-                    className="h-2 w-2 rounded-full opacity-40 transition-opacity group-hover:opacity-100"
-                    style={{ background: YELLOW }}
-                  />
+                <div>
+                  <div className="flex items-center justify-between border-b border-neutral-200/80 pb-4">
+                    <span className="text-2xl font-semibold tabular-nums tracking-[-0.04em] text-neutral-900">
+                      {s.num}
+                    </span>
+                    <span
+                      className="h-2.5 w-2.5 rounded-full"
+                      style={{ background: i === 3 ? YELLOW : "#D4D4D4" }}
+                    />
+                  </div>
+                  <h4 className="mt-5 text-lg font-semibold tracking-[-0.025em] text-neutral-900">
+                    {s.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+                    {s.body}
+                  </p>
                 </div>
-                <h4 className="mt-5 text-lg font-semibold tracking-[-0.02em]">
-                  {item.title}
-                </h4>
-                <p className="mt-1.5 text-sm leading-relaxed text-neutral-600">
-                  {item.body}
-                </p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Triggers + Access Controls */}
-        <div className="mt-24 grid gap-8 lg:grid-cols-2">
+        {/* /VAULT CONTENTS/ — Split Editorial Index */}
+        <div className="mt-24 border-t pt-12 border-neutral-200">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.5fr] lg:items-start">
+            <div className="lg:sticky lg:top-24">
+              <p className="text-xs font-semibold tracking-wider">
+                /VAULT CONTENTS/
+              </p>
+              <h3 className="mt-2 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
+                What you can keep in it
+              </h3>
+              <Small className="mt-3 max-w-sm">
+                Everything your family would struggle to piece together in an
+                urgent moment, kept in one structured place.
+              </Small>
+            </div>
+
+            <div className={`grid border-t border-l sm:grid-cols-2 ${LINE}`}>
+              {stores.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={rm ? false : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: Math.min(i * 0.05, 0.25),
+                    duration: 0.4,
+                    ease: EASE,
+                  }}
+                  className={`group border-r border-b bg-white/70 p-6 transition-colors hover:bg-white ${LINE}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-neutral-900"
+                      style={{ background: YELLOW_SOFT }}
+                    >
+                      <Icon d={item.icon} className="h-4 w-4" />
+                    </span>
+                    <h4 className="text-base font-semibold tracking-[-0.02em] text-neutral-900">
+                      {item.title}
+                    </h4>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+                    {item.body}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* /RELEASE TRIGGERS/ + /TRUSTED ACCESS/ */}
+        <div className="mt-24 grid gap-10 lg:grid-cols-2">
           {/* Release Triggers */}
-          <div className={`border-t pt-8 ${LINE}`}>
-            <p className="text-xs font-medium">/RELEASE TRIGGERS/</p>
+          <div className="border-t pt-10 border-neutral-200">
+            <p className="text-xs font-semibold tracking-wider">
+              /RELEASE TRIGGERS/
+            </p>
             <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">
               Pick what opens the vault
             </h3>
 
-            <div className="mt-6 divide-y divide-neutral-200 border-b border-neutral-200">
-              {triggers.map((t) => (
-                <div key={t.title} className="flex items-start gap-4 py-5">
-                  <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-neutral-300 bg-white text-neutral-900">
-                    <Icon d={t.icon} className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <p className="font-semibold tracking-[-0.02em] text-neutral-900">
-                      {t.title}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-                      {t.body}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-6 space-y-3">
+              {triggers.map((t) => {
+                const isSelected = selectedTrigger === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setSelectedTrigger(t.id)}
+                    aria-pressed={isSelected}
+                    className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition-colors ${
+                      isSelected
+                        ? "border-neutral-900 bg-white shadow-xs"
+                        : "border-neutral-200/80 bg-white/60 hover:bg-white"
+                    }`}
+                  >
+                    <span
+                      className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full text-neutral-900"
+                      style={{
+                        background: isSelected ? YELLOW : "#F3F3F1",
+                      }}
+                    >
+                      <Icon d={t.icon} className="h-4 w-4" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="font-semibold tracking-[-0.02em] text-neutral-900">
+                          {t.title}
+                        </p>
+                        {isSelected && (
+                          <span className="rounded-full bg-neutral-900 px-2.5 py-0.5 text-[11px] font-medium text-white">
+                            Selected
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+                        {t.body}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Recipient Access */}
-          <div className={`border-t pt-8 ${LINE}`}>
-            <p className="text-xs font-medium">/TRUSTED ACCESS/</p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">
-              Choose who gets access
-            </h3>
+          {/* Trusted Access */}
+          <div className="border-t pt-10 border-neutral-200">
+            <div className="flex items-baseline justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold tracking-wider">
+                  /TRUSTED ACCESS/
+                </p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">
+                  Choose who gets access
+                </h3>
+              </div>
+              <span className="shrink-0 rounded-full bg-neutral-200/80 px-3 py-1 text-xs font-semibold text-neutral-800">
+                {activeRecipients.length} of {recipients.length} active
+              </span>
+            </div>
+
             <p className="mt-2 text-sm text-neutral-600">
               Toggle who can receive vault access when a trigger fires.
             </p>
 
-            <div className="mt-6 divide-y divide-neutral-200 border-b border-neutral-200">
+            <div className="mt-6 divide-y divide-neutral-200 rounded-2xl border border-neutral-200/90 bg-white/80 px-5">
               {recipients.map((person) => (
                 <button
                   key={person.id}
                   type="button"
                   onClick={() => toggleRecipient(person.id)}
                   aria-pressed={person.enabled}
-                  className="flex w-full items-center justify-between py-4 text-left transition hover:bg-black/[0.02]"
+                  className="flex w-full items-center justify-between gap-4 py-4 text-left transition hover:opacity-90"
                 >
                   <div className="flex items-center gap-3.5">
                     <Avatar label={person.initials} bg={person.bg} />
@@ -444,16 +494,27 @@ export default function SafetyVault() {
                     </div>
                   </div>
 
-                  <span
-                    className={`grid h-6 w-6 place-items-center rounded-full border transition ${
-                      person.enabled
-                        ? "border-neutral-900 text-neutral-900"
-                        : "border-neutral-300 text-transparent"
-                    }`}
-                    style={person.enabled ? { background: YELLOW } : undefined}
-                  >
-                    <Icon d={ICONS.check} className="h-3.5 w-3.5" />
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`text-xs font-medium ${
+                        person.enabled ? "text-neutral-900" : "text-neutral-400"
+                      }`}
+                    >
+                      {person.enabled ? "Assigned" : "Off"}
+                    </span>
+                    <span
+                      className={`grid h-6 w-6 place-items-center rounded-full border transition ${
+                        person.enabled
+                          ? "border-neutral-900 text-neutral-900"
+                          : "border-neutral-300 text-transparent"
+                      }`}
+                      style={
+                        person.enabled ? { background: YELLOW } : undefined
+                      }
+                    >
+                      <Icon d={ICONS.check} className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
                 </button>
               ))}
             </div>
