@@ -598,11 +598,10 @@ export default function Circles() {
     </div>
   );
 
-  // Full-width, spacious layouts per circle
+  // Optimized layouts per circle – no shadows, clean spacing, better breathing room
   const renderCircleDisplay = (c: CircleConfig) => {
     switch (c.name) {
       case "Relatives":
-        // Roomy 2-column split with News on left, Polls + Chats stacked on right, wide Calls bar below
         return (
           <div className="relative grid gap-5 sm:gap-6 md:grid-cols-12">
             <Panel
@@ -660,7 +659,6 @@ export default function Circles() {
         );
 
       case "Classmates":
-        // Clean 2x2 grid so every card gets full half-width space
         return (
           <div className="relative grid gap-5 sm:gap-6 md:grid-cols-2">
             <Panel
@@ -714,7 +712,6 @@ export default function Circles() {
         );
 
       case "Office":
-        // Wide Calls + Polls on top (7/5), wide News + Chats below (7/5)
         return (
           <div className="relative grid gap-5 sm:gap-6 md:grid-cols-12">
             <Panel
@@ -772,7 +769,6 @@ export default function Circles() {
         );
 
       case "Business":
-        // Wide News spotlight on top, followed by roomy 3-column Polls, Chats, and Calls
         return (
           <div className="relative grid gap-5 sm:gap-6 md:grid-cols-12">
             <Panel
@@ -830,7 +826,6 @@ export default function Circles() {
         );
 
       case "Community":
-        // News + Polls up top (7/5), full-width Chats, and yellow Calls banner below
         return (
           <div className="relative grid gap-5 sm:gap-6 md:grid-cols-12">
             <Panel
@@ -991,10 +986,10 @@ export default function Circles() {
         </div>
       </Wrap>
 
-      {/* Full-Width Navy Stage */}
+      {/* Full-Width Navy Stage – no shadows, extra padding for better layout breathing */}
       <Wrap className="pb-14">
         <div
-          className="relative overflow-hidden rounded-3xl p-4 sm:p-8"
+          className="relative overflow-hidden rounded-3xl p-4 sm:p-10"
           style={{ background: NAVY }}
         >
           <Rings />
