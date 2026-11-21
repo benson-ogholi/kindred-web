@@ -1,118 +1,74 @@
 import { Link } from "react-router-dom";
-import { EMAIL, Icon, ICONS, Logo, PLAY_STORE, YELLOW } from "../home/shared";
+import { EMAIL, Logo, PLAY_STORE, YELLOW } from "../home/shared";
+import { Arrow, NAVY, Wrap } from "../home/editorial";
 
-const linkCls = "hover:text-white";
+const link = "transition hover:text-white";
+const head = "text-xs font-medium text-white";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-neutral-900 text-neutral-300">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <div className="inline-block rounded-2xl px-4 py-2.5">
+    <footer id="contact" className="text-white/60" style={{ background: NAVY }}>
+      <Wrap className="pt-20">
+        <h2 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-6xl">
+          Stay close to the people who{" "}
+          <span className="px-1.5 text-neutral-900" style={{ background: YELLOW }}>matter.</span>
+        </h2>
+        <a
+          href={`mailto:${EMAIL}`}
+          className="mt-10 inline-flex items-center gap-2 border-b border-white pb-1 text-sm text-white"
+        >
+          {EMAIL} <Arrow />
+        </a>
+
+        <div className="mt-16 grid gap-12 border-t border-white/15 py-12 md:grid-cols-[35%_1fr]">
+          <div>
             <Logo className="h-8" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed">
+              A private space for your family and the circles that feel like family, with a Safety Vault for when it
+              matters most.
+            </p>
           </div>
-          <p className="mt-5 max-w-sm text-sm text-neutral-400">
-            A private space for your family and the circles that feel like
-            family, with a Safety Vault for when it matters most.
-          </p>
-          <a
-            href={`mailto:${EMAIL}`}
-            className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-neutral-900 transition hover:brightness-95"
-            style={{ background: YELLOW }}
-          >
-            <Icon d={ICONS.mail} className="h-4 w-4" /> {EMAIL}
-          </a>
+
+          <div className="grid gap-10 text-sm sm:grid-cols-3">
+            <nav aria-label="Product">
+              <p className={head}>/PRODUCT/</p>
+              <ul className="mt-4 space-y-3">
+                <li><Link className={link} to="/about">About</Link></li>
+                <li><a className={link} href="/#vault">Safety Vault</a></li>
+                <li><a className={link} href="/#circles">Circles</a></li>
+                <li><a className={link} href="/#circles">Chats and calls</a></li>
+                <li><Link className={link} to="/faqs">FAQs</Link></li>
+              </ul>
+            </nav>
+
+            <nav aria-label="Get the app">
+              <p className={head}>/GET THE APP/</p>
+              <ul className="mt-4 space-y-3">
+                <li>
+                  <a className={link} href={PLAY_STORE} target="_blank" rel="noopener noreferrer">
+                    Android
+                  </a>
+                </li>
+                <li className="text-white/40">iOS (coming soon)</li>
+              </ul>
+            </nav>
+
+            <nav aria-label="Legal">
+              <p className={head}>/LEGAL/</p>
+              <ul className="mt-4 space-y-3">
+                <li><Link className={link} to="/terms">Terms of Service</Link></li>
+                <li><Link className={link} to="/privacy">Privacy Policy</Link></li>
+              </ul>
+            </nav>
+          </div>
         </div>
+      </Wrap>
 
-        <nav className="md:col-span-2" aria-label="Product">
-          <h4 className="text-sm font-semibold text-white">Product</h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li>
-              <a className={linkCls} href="/#vault">
-                Safety Vault
-              </a>
-            </li>
-            <li>
-              <a className={linkCls} href="/#circles">
-                Circles
-              </a>
-            </li>
-            <li>
-              <a className={linkCls} href="/#circles">
-                Chats and calls
-              </a>
-            </li>
-            <li>
-              <Link className={linkCls} to="/faqs">
-                FAQs
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <nav className="md:col-span-2" aria-label="Get the app">
-          <h4 className="text-sm font-semibold text-white">Get the app</h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li>
-              <a
-                className={linkCls}
-                href={PLAY_STORE}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Android
-              </a>
-            </li>
-            <li className="text-neutral-500">iOS (coming soon)</li>
-          </ul>
-        </nav>
-
-        <nav className="md:col-span-2" aria-label="Legal">
-          <h4 className="text-sm font-semibold text-white">Legal</h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li>
-              <Link className={linkCls} to="/terms">
-                Terms of Service
-              </Link>
-            </li>
-            <li>
-              <Link className={linkCls} to="/privacy">
-                Privacy Policy
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold text-white">Contact</h4>
-          <p className="mt-4 text-sm text-neutral-400">
-            Questions, feedback or partnerships? Write to us.
-          </p>
-          <a
-            className="mt-2 inline-block break-all text-sm font-medium text-white underline decoration-neutral-600 underline-offset-4 hover:decoration-white"
-            href={`mailto:${EMAIL}`}
-          >
-            {EMAIL}
-          </a>
-        </div>
-      </div>
-
-      <div className="border-t border-neutral-800">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-neutral-500 sm:flex-row">
+      <div className="border-t border-white/15">
+        <Wrap className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Kokohor. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <Link className={linkCls} to="/terms">
-              Terms
-            </Link>
-            <Link className={linkCls} to="/privacy">
-              Privacy
-            </Link>
-            <Link className={linkCls} to="/faqs">
-              FAQs
-            </Link>
-            <span>Calls are currently in beta.</span>
-          </div>
-        </div>
+          <span>Calls are currently in beta.</span>
+        </Wrap>
       </div>
     </footer>
   );

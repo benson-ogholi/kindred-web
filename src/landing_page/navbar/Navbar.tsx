@@ -6,11 +6,15 @@ import { Icon, ICONS, Logo, PLAY_STORE, YELLOW } from "../home/shared";
 // Hash links use "/#id" so they work from any page (needs the ScrollToTop with hash support).
 const links = [
   { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
   { label: "Safety Vault", to: "/#vault" },
   { label: "Circles", to: "/#circles" },
   { label: "FAQs", to: "/faqs" },
   { label: "Contact", to: "/#contact" },
 ];
+
+// Only real page routes (not hash links) can be "active"
+const PAGE_ROUTES = ["/about", "/faqs"];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,7 +31,7 @@ export default function Navbar() {
   // Close the mobile menu whenever the route changes
   useEffect(() => setOpen(false), [pathname]);
 
-  const isActive = (to: string) => to === "/faqs" && pathname === "/faqs";
+  const isActive = (to: string) => PAGE_ROUTES.includes(to) && pathname === to;
 
   return (
     <header

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logoImg from "../../assets/new.png";
 
 export const PLAY_STORE =
@@ -48,7 +49,7 @@ export const Icon = ({
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth={1.8}
+    strokeWidth={1.7}
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -58,24 +59,32 @@ export const Icon = ({
   </svg>
 );
 
+/** Round badge, matching the star badge in the editorial headlines */
 export const IconBadge = ({
   d,
   tone = "yellow",
 }: {
   d: string;
-  tone?: "yellow" | "white";
+  tone?: "yellow" | "white" | "dark";
 }) => (
   <div
-    className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-neutral-900 ${tone === "white" ? "bg-white" : ""}`}
+    className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${
+      tone === "white"
+        ? "bg-white text-neutral-900"
+        : tone === "dark"
+          ? "bg-neutral-900 text-white"
+          : "text-neutral-900"
+    }`}
     style={tone === "yellow" ? { background: YELLOW } : undefined}
   >
     <Icon d={d} />
   </div>
 );
 
+/** Goes to the home page from anywhere (works on /about, /faqs, etc.) */
 export const Logo = ({ className = "h-9" }: { className?: string }) => (
-  <a
-    href="#home"
+  <Link
+    to="/"
     className="inline-flex items-center gap-2"
     aria-label="Kokohor home"
   >
@@ -84,7 +93,7 @@ export const Logo = ({ className = "h-9" }: { className?: string }) => (
       alt="Kokohor"
       className={`${className} w-auto object-contain`}
     />
-  </a>
+  </Link>
 );
 
 export const PlayButton = ({ dark = true }: { dark?: boolean }) => (
@@ -92,29 +101,30 @@ export const PlayButton = ({ dark = true }: { dark?: boolean }) => (
     href={PLAY_STORE}
     target="_blank"
     rel="noopener noreferrer"
-    className={`inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 ${
+    className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-[-0.01em] transition active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 ${
       dark
         ? "bg-neutral-900 text-white hover:bg-neutral-700"
         : "bg-white text-neutral-900 hover:bg-neutral-100"
     }`}
   >
-    <Icon d={ICONS.android} /> Get it on Android
+    <Icon d={ICONS.android} className="h-4 w-4" /> Get it on Android
   </a>
 );
 
 export const IosSoon = ({ dark = false }: { dark?: boolean }) => (
   <span
     aria-disabled
-    className={`inline-flex cursor-not-allowed items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold ${
+    className={`inline-flex cursor-not-allowed items-center gap-2 rounded-full border px-5 py-3 text-sm font-medium tracking-[-0.01em] ${
       dark
-        ? "border-neutral-700 text-neutral-400"
-        : "border-neutral-300 bg-white/60 text-neutral-500"
+        ? "border-white/20 text-white/50"
+        : "border-neutral-900/25 text-neutral-600"
     }`}
   >
-    <Icon d={ICONS.mobile} /> iOS coming soon
+    <Icon d={ICONS.mobile} className="h-4 w-4" /> iOS coming soon
   </span>
 );
 
+/** Flat, lightly bordered surface (replaces the old soft rounded card) */
 export const Card = ({
   className = "",
   children,
@@ -122,9 +132,7 @@ export const Card = ({
   className?: string;
   children: React.ReactNode;
 }) => (
-  <div
-    className={`rounded-3xl p-6  ${className}`}
-  >
+  <div className={`rounded-xl border border-neutral-200 bg-white p-6 ${className}`}>
     {children}
   </div>
 );
@@ -137,21 +145,28 @@ export const Avatar = ({ label, bg }: { label: string; bg: string }) => (
   </span>
 );
 
+/** Editorial heading: left-aligned by default, tight tracking */
 export const SectionHeading = ({
   title,
   body,
-  center = true,
+  center = false,
 }: {
   title: string;
   body: string;
   center?: boolean;
 }) => (
-  <div className={`mx-auto max-w-3xl px-6 ${center ? "text-center" : ""}`}>
-    <h2 className="text-balance text-4xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
+  <div className={`mx-auto max-w-6xl px-6 ${center ? "text-center" : ""}`}>
+    <h2
+      className={`text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-neutral-900 md:text-5xl ${
+        center ? "mx-auto max-w-3xl" : "max-w-3xl"
+      }`}
+    >
       {title}
     </h2>
     <p
-      className={`mt-4 text-lg text-neutral-600 ${center ? "mx-auto max-w-2xl" : ""}`}
+      className={`mt-5 max-w-md text-sm leading-relaxed text-neutral-600 ${
+        center ? "mx-auto" : ""
+      }`}
     >
       {body}
     </p>
