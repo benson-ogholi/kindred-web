@@ -25,6 +25,9 @@ import {
   Wrap,
 } from "./editorial";
 import WhatYouGet from "./WhatYouGet";
+import padimanRouteLogo from "../../assets/brands/padiman-route.png";
+import padimanUtilityLogo from "../../assets/brands/padiman-utility.png";
+import fufuLogo from "../../assets/brands/fufu.png";
 
 /* Optional: set to a real app screenshot (portrait) to replace the coded phone screen. */
 const APP_SCREENSHOT = "";
@@ -35,6 +38,21 @@ const audiences = [
   "Office teams",
   "Businesses",
   "Communities",
+];
+
+const supporters = [
+  {
+    name: "Padiman Route",
+    logo: padimanRouteLogo,
+  },
+  {
+    name: "Padiman Utility",
+    logo: padimanUtilityLogo,
+  },
+  {
+    name: "Fufunova Foods",
+    logo: fufuLogo,
+  },
 ];
 
 const EASE = [0.2, 0.7, 0.2, 1] as const;
@@ -316,6 +334,35 @@ export default function Hero() {
             </motion.p>
           ))}
         </div>
+
+        {/* Corporate Supporters */}
+        <motion.div
+          initial={rm ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.45, ease: EASE }}
+          className={`mt-8 flex flex-col gap-5 border-t pt-8 sm:flex-row sm:items-center sm:justify-between ${LINE}`}
+        >
+          <p className="text-xs font-medium text-neutral-500">
+            /CORPORATE SUPPORTERS/
+          </p>
+          <div className="flex flex-wrap items-center gap-6 sm:gap-10">
+            {supporters.map((s) => (
+              <div
+                key={s.name}
+                className="flex items-center gap-3 opacity-80 transition-opacity duration-200 hover:opacity-100"
+              >
+                <img
+                  src={s.logo}
+                  alt={s.name}
+                  className="h-7 w-7 rounded-md object-contain"
+                />
+                <span className="text-sm font-semibold tracking-[-0.02em] text-neutral-800">
+                  {s.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </Wrap>
 
       {/* Full-bleed band with the app */}

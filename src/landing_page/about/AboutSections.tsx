@@ -16,6 +16,10 @@ import {
 } from "framer-motion";
 import { Icon, ICONS, YELLOW, YELLOW_SOFT } from "../home/shared";
 import { ACCENT, LINE, NAVY, Small, Wrap } from "../home/editorial";
+import bensonImg from "../../assets/team/benson.jpg";
+import ibenemeImg from "../../assets/team/ibeneme.jpg";
+import kelechiImg from "../../assets/team/kelechi.jpg";
+import boveImg from "../../assets/team/bove.jpg";
 
 const EASE = [0.2, 0.7, 0.2, 1] as const;
 const CAMERA = "M3 7h11a2 2 0 012 2v6a2 2 0 01-2 2H3zM16 10l5-3v10l-5-3";
@@ -758,28 +762,28 @@ const team = [
     r: "Founder / CEO",
     bg: YELLOW,
     fg: "text-neutral-900",
-    img: "",
+    img: bensonImg,
   },
   {
     n: "Ikenna Ibeneme",
     r: "Chief Technology Officer",
     bg: NAVY,
     fg: "text-white",
-    img: "",
+    img: ibenemeImg,
   },
   {
     n: "Kelechi Ulu",
     r: "Chief of Staff",
     bg: ACCENT,
     fg: "text-neutral-900",
-    img: "",
+    img: kelechiImg,
   },
   {
     n: "Stephano Bove",
     r: "Quality Assurance",
     bg: "#E4E4E0",
     fg: "text-neutral-900",
-    img: "",
+    img: boveImg,
   },
 ];
 const initials = (n: string) =>
@@ -808,7 +812,7 @@ function Team() {
                 <img
                   src={t.img}
                   alt={t.n}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (
                 <span className="absolute inset-0 grid place-items-center text-7xl font-medium tracking-[-0.06em] opacity-30 transition-transform duration-500 group-hover:scale-110">
