@@ -336,6 +336,7 @@ export default function Hero() {
         </div>
 
         {/* Corporate Supporters */}
+        {/* Corporate Supporters */}
         <motion.div
           initial={rm ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -345,20 +346,18 @@ export default function Hero() {
           <p className="text-xs font-medium text-neutral-500">
             /CORPORATE SUPPORTERS/
           </p>
-          <div className="flex flex-wrap items-center gap-6 sm:gap-10">
+          <div className="flex flex-wrap items-center gap-8 sm:gap-12">
             {supporters.map((s) => (
               <div
                 key={s.name}
-                className="flex items-center gap-3 opacity-80 transition-opacity duration-200 hover:opacity-100"
+                className="flex items-center gap-3.5 opacity-85 transition-opacity duration-200 hover:opacity-100"
               >
                 <img
                   src={s.logo}
                   alt={s.name}
-                  className="h-7 w-7 rounded-md object-contain"
+                  className="h-32 w-32 rounded-lg object-contain sm:h-64 sm:w-64"
                 />
-                <span className="text-sm font-semibold tracking-[-0.02em] text-neutral-800">
-                  {s.name}
-                </span>
+              
               </div>
             ))}
           </div>
