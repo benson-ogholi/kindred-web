@@ -1,6 +1,0 @@
-# Netlify (ignored by Vercel, which uses vercel.json)
-/.well-known/assetlinks.json                 /.well-known/assetlinks.json  200
-/.well-known/apple-app-site-association      https://kindred-server.onrender.com/.well-known/apple-app-site-association  200
-/post/*                                      https://kindred-server.onrender.com/post/:splat  200
-/p/*                                         https://kindred-server.onrender.com/p/:splat  200
-/*                                           /index.html  200
