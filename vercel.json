@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/.well-known/assetlinks.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/.well-known/apple-app-site-association", "destination": "https://kindred-server.onrender.com/.well-known/apple-app-site-association" },
+    { "source": "/post/:id", "destination": "https://kindred-server.onrender.com/post/:id" },
+    { "source": "/p/:id", "destination": "https://kindred-server.onrender.com/p/:id" },
+    { "source": "/((?!\\.well-known/).*)", "destination": "/index.html" }
+  ]
+}

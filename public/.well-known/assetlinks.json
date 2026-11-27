@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kokohor.app",
+      "sha256_cert_fingerprints": [
+        "70:2A:4C:7B:3D:BA:66:6D:60:06:E6:81:20:1C:F7:55:F7:89:F1:C3:E7:FA:C1:4D:16:80:D3:45:7E:F1:C1:CC"
+      ]
+    }
+  }
+]
